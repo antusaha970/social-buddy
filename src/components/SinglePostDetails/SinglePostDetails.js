@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import PersonIcon from '@mui/icons-material/Person';
 import './SinglePostDetails.css';
 import Comments from '../Comment/Comments';
+import { Grid } from '@mui/material';
 
 
 const SinglePostDetails = () => {
@@ -14,19 +15,37 @@ const SinglePostDetails = () => {
             .then(res => res.json())
             .then(data => setPostsData(data));
     }, [])
-    const {title,body,userId} = postData;
+    const { title, body, userId } = postData;
+    const [comments, setComments] = useState([]);
 
+
+    useEffect(() => {
+        fetch(`https://jsonplaceholder.typicode.com/comments?postId=${id}`)
+            .then(response => response.json())
+            .then(data => setComments(data));
+    }, [])
+    const [userPhoto, setUserPhoto] = useState([]);
+    useEffect(() => {
+        fetch('https://randomuser.me/api/?results=5')
+            .then(response => response.json())
+            .then(data => setUserPhoto(data.results));
+    }, [])
 
     return (
         <Container fixed>
             <h1 className='text-center header-text'>Post Details</h1>
             <div className='main-post'>
                 <h1>{title}</h1>
-                <p className='userId'>Posted by : user {userId} <PersonIcon style={{fontSize:'20px'}} /> </p>
+                <p className='userId'>Posted by : user {userId} <PersonIcon style={{ fontSize: '20px' }} /> </p>
                 <p>Description: {body}</p>
             </div>
             <h3>Comment section</h3>
-            <Comments></Comments>
+            <Grid spacing={2}>
+                {
+                    comments?.map((comment, ind) => <Comments comment={comment} photo={userPhoto[ind]}></Comments>)
+                }
+            </Grid>
+                    
         </Container>
     );
 };
