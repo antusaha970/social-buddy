@@ -33,6 +33,9 @@ function App() {
             <main>
               <PostArea postsData={postsData}></PostArea>
             </main>
+            <footer className='text-center'>
+              <small >All rights reserved by : Antu Saha</small>
+            </footer>
           </Route>
 
 

@@ -5,6 +5,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import './SinglePostDetails.css';
 import Comments from '../Comment/Comments';
 import { Grid } from '@mui/material';
+import AddComment from '../AddComment/AddComment';
 
 
 const SinglePostDetails = () => {
@@ -26,7 +27,7 @@ const SinglePostDetails = () => {
     }, [])
     const [userPhoto, setUserPhoto] = useState([]);
     useEffect(() => {
-        fetch('https://randomuser.me/api/?results=5')
+        fetch('https://randomuser.me/api/?results=50')
             .then(response => response.json())
             .then(data => setUserPhoto(data.results));
     }, [])
@@ -45,7 +46,8 @@ const SinglePostDetails = () => {
                     comments?.map((comment, ind) => <Comments comment={comment} photo={userPhoto[ind]}></Comments>)
                 }
             </Grid>
-                    
+            <AddComment comments= {comments} setComments={setComments}></AddComment>
+
         </Container>
     );
 };
