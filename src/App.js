@@ -8,6 +8,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import SinglePostDetails from './components/SinglePostDetails/SinglePostDetails';
 
 function App() {
   const [postsData, setPostsData] = useState([]);
@@ -21,7 +22,7 @@ function App() {
       <Router>
         <Switch>
           <Route path={'/post/:id'}>
-              <h2>This is post</h2>
+            <SinglePostDetails></SinglePostDetails>
           </Route>
 
 
